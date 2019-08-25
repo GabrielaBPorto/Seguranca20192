@@ -6,6 +6,7 @@ Rm = rm -f
 
 all:
 	$(CXX) -o criptografia.exe criptoRSA.c $(FLAGS)
+	$(CXX) -o exemplo.exe bn_sample.c $(FLAGS)
 	# $(CXX) -o sequencial.exe src/sequencial_paralelo_smith_waterman.c $(FLAGS)
 
 clean:

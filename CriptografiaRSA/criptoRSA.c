@@ -14,17 +14,29 @@ void printBN(char *msg, BIGNUM *a){
 
 
 int main(int argc, char *argv[]) {
+  //Variável temporária
   BN_CTX *ctx = BN_CTX_new();
-  BIGNUM *a = BN_new();
 
+  BIGNUM *p = BN_new();
+  BIGNUM *q = BN_new();
+  BIGNUM *e = BN_new();
+  BIGNUM *res = BN_new();
+  BIGNUM *phi = BN_new();
+  BIGNUM *tmp = BN_new();
     // Assign a value from a decimal number string
-  BN_dec2bn(&a, "12345678901112231223");
+  // BN_dec2bn(&a, "12345678901112231223");
   // Assign a value from a hex number string
-  BN_hex2bn(&a, "2A3B4C55FF77889AED3F");
+  BN_hex2bn(&p, "F7E75FDC469067FFDC4E847C51F452DF");
+  BN_hex2bn(&q, "E85CED54AF57E53E092113E62F436F4F");
+  BN_hex2bn(&e, "0D88C3");
+  BN_mul(res, a, b, ctx);
+  BN_mul(phi, a-1, b-1, ctx);
+  BN_mul(tmp, e, b-1, ctx);
+  // BN_mod_exp(res, a, b, n, ctx);
   // Generate a random number of 128 bits
-  BN_rand(a, 128, 0, 0);
+  // BN_rand(a, 128, 0, 0);
   // Generate a random prime number of 128 bits
-  BN_generate_prime_ex(a, 128, 1, NULL, NULL, NULL);
+  // BN_generate_prime_ex(a, 128, 1, NULL, NULL, NULL);
 
   return 0;
 }
