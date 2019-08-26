@@ -42,16 +42,23 @@ int main(int argc, char *argv[]) {
 
   //3.3
   BN_mod_exp(msgDecifrada, msgCifrada, privada, n, ctx);
-  printBN("3.2 decifrado: ", msgDecifrada);
+  printBN("3.3 decifrado: ", msgDecifrada);
 
   //3.4
   BN_hex2bn(&msg, "49206f776520796f752024323030302e");
   BN_mod_exp(msgCifrada, msg, privada, n, ctx);
-  printBN("Msg 1: ", msgCifrada);
+  printBN("3.4 msg cifrada 1: ", msgCifrada);
   BN_hex2bn(&msg, "49206f776520796f752024333030302e");
   BN_mod_exp(msgCifrada, msg, privada, n, ctx);
-  printBN("Msg 2: ", msgCifrada);
+  printBN("3.4 msg cifrada 2: ", msgCifrada);
 
   //3.5
+  BN_hex2bn(&msg, "643D6F34902D9C7EC90CB0B2BCA36C47FA37165C0005CAB026C0542CBDB6802F");
+  BN_hex2bn(&publica, "010001");
+  BN_hex2bn(&n, "AE1CD4DC432798D933779FBD46C6E1247F0CF1233595113AA51B450F18116115");
+  BN_mod_exp(msgDecifrada, msg, publica, n, ctx);
+  printBN("3.3 cifrada: ", msgDecifrada);
+
+
   return 0;
 }
