@@ -17,26 +17,35 @@ int main(int argc, char *argv[]) {
   //Variável temporária
   BN_CTX *ctx = BN_CTX_new();
 
-  BIGNUM *p = BN_new();
-  BIGNUM *q = BN_new();
-  BIGNUM *e = BN_new();
-  BIGNUM *res = BN_new();
-  BIGNUM *phi = BN_new();
-  BIGNUM *tmp = BN_new();
-    // Assign a value from a decimal number string
-  // BN_dec2bn(&a, "12345678901112231223");
-  // Assign a value from a hex number string
-  BN_hex2bn(&p, "F7E75FDC469067FFDC4E847C51F452DF");
-  BN_hex2bn(&q, "E85CED54AF57E53E092113E62F436F4F");
-  BN_hex2bn(&e, "0D88C3");
-  BN_mul(res, a, b, ctx);
-  BN_mul(phi, a-1, b-1, ctx);
-  BN_mul(tmp, e, b-1, ctx);
-  // BN_mod_exp(res, a, b, n, ctx);
-  // Generate a random number of 128 bits
-  // BN_rand(a, 128, 0, 0);
-  // Generate a random prime number of 128 bits
-  // BN_generate_prime_ex(a, 128, 1, NULL, NULL, NULL);
+  BIGNUM *a = BN_new();
+  BIGNUM *b = BN_new();
+  BIGNUM *publica = BN_new();
+  BIGNUM *n = BN_new();
+  BIGNUM *privada = BN_new();
+  BIGNUM *msgCifrada = BN_new();
+  BIGNUM *msgDecifrada = BN_new();
+  BIGNUM *msg = BN_new();
+  char p[14] = "A top secret!";
+  char *decifrada;
+
+
+  //3.1
+  BN_hex2bn(&a, "F7E75FDC469067FFDC4E847C51F452DF");
+  BN_hex2bn(&b, "E85CED54AF57E53E092113E62F436F4F");
+  BN_hex2bn(&publica, "0D88C3");
+  BN_hex2bn(&msg,"4120746f702073656372657421");
+  BN_mul(n, a, b, ctx);
+  BN_mod_exp(privada, a, b, n, ctx);
+  //3.2
+  BN_hex2bn(&publica, "010001");
+  printBN("publica is : ", publica);
+  BN_hex2bn(&n, "DCBFFE3E51F62E09CE7032E2677A78946A849DC4CDDE3A4D0CB81629242FB1A5");
+  BN_hex2bn(&privada, "74D806F9F3A62BAE331FFE3F0A68AFE35B3D2E4794148AACBC26AA381CD7D30D");
+  BN_mod_exp(msgCifrada, msg, n, publica, ctx);
+  //3.3
+  BN_mod_exp(msgDecifrada, msgCifrada, n, privada, ctx);
+  decifrada = BN_bn2hex(msgDecifrada);
+  printf("%s\n", decifrada );
 
   return 0;
 }
